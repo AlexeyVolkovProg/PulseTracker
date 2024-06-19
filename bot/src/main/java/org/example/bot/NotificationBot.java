@@ -3,6 +3,7 @@ package org.example.bot;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.example.commands.CommandManager;
 import org.example.configuration.ApplicationConfig;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -17,10 +18,13 @@ public class NotificationBot extends TelegramLongPollingBot {
     private final String botName;
     private final String telegramToken;
 
+    private final CommandManager commandManager;
 
-    public NotificationBot(ApplicationConfig applicationConfig) {
+
+    public NotificationBot(ApplicationConfig applicationConfig, CommandManager commandManager) {
         this.botName = applicationConfig.botName();
         this.telegramToken = applicationConfig.telegramToken();
+        this.commandManager = commandManager;
     }
 
     @Override
@@ -35,8 +39,12 @@ public class NotificationBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        System.out.println(update.getMessage().getText());
+        if (update.getMessage() != null && update.getMessage().hasText()){
+            commandManager.commandHandler(update, this);
+        }
     }
+
+
 }
 
 
