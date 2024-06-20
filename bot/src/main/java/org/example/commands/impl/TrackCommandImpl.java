@@ -40,7 +40,7 @@ public class TrackCommandImpl implements BaseCommand {
             HostInfo hostInfo = parsingManager.findResource(currentLink);
             if(hostInfo != null){
                 linkDB.addLink(userId, currentLink);
-                sendText(userId, "Ссылка на отслеживание ресурса " + hostInfo.getResourceNameURL() + " распознана и добавлена в БД", bot);
+                sendText(userId, AdditionalInfo.ADD_LINK_MESSAGE.getMessage()+ hostInfo.getResourceNameURL() + " распознана и добавлена в БД", bot);
             }else{
                 sendText(userId, AdditionalInfo.LINK_ADD_ERROR.getMessage(), bot);
             }

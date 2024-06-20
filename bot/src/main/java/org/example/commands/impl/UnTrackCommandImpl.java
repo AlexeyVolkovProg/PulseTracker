@@ -38,7 +38,7 @@ public class UnTrackCommandImpl implements BaseCommand {
             HostInfo hostInfo = parsingManager.findResource(currentLink);
             if(hostInfo != null){
                 linkDB.removeLink(userId, currentLink);
-                sendText(userId, "Ссылка на отслеживание ресурса " + HostInfo.GITHUB.getResourceNameURL() + " распознана и удалена из БД", bot);
+                sendText(userId, AdditionalInfo.REMOVE_LINK_MESSAGE.getMessage()+ HostInfo.GITHUB.getResourceNameURL(), bot);
             }else{
                 sendText(userId, AdditionalInfo.LINK_REMOVE_ERROR.getMessage(), bot);
             }

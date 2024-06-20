@@ -4,6 +4,7 @@ package org.example.commands.impl;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.commands.BaseCommand;
+import org.example.commands.info.AdditionalInfo;
 import org.example.commands.info.CommandInfo;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -22,10 +23,7 @@ public class StartCommandImpl implements BaseCommand {
     @Override
     public void executeCommand(String[] commandArgs, Update update, AbsSender bot) {
         Long userId = update.getMessage().getChatId();
-        sendText(userId, "Приветствую. \n" +
-                "Данный бот поможет тебе получать " +
-                "уведомления об обновлениях в репозиториях Github, а также об обновлениях обсуждений вопросов на SOF.\n" +
-                "Для просмотра доступных команд напиши /help", bot);
+        sendText(userId, AdditionalInfo.START_MESSAGE.getMessage(), bot);
     }
 
     @Override
