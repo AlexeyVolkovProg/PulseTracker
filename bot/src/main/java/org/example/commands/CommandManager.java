@@ -42,8 +42,7 @@ public class CommandManager {
 
 
     public String parseCommandName(Update update){
-        System.out.println(update);
-        return update.getMessage().getText().split("", 1)[0];
+        return update.getMessage().getText().split("\\s+")[0];
     }
 
     public String[] parseCommandArgs(Update update){

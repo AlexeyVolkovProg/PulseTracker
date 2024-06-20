@@ -3,8 +3,6 @@ package org.example.parsing.info;
 
 import lombok.Getter;
 
-// ^https://stackoverflow\\.com/questions/(\\d+)(/|$)
-//https:\/\/stackoverflow\.com\/questions\/\d+\/[^\/?#]+
 @Getter
 public enum HostInfo {
 

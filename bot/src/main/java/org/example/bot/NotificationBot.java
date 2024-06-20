@@ -3,7 +3,7 @@ package org.example.bot;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.example.commands.managers.CommandManager;
+import org.example.commands.CommandManager;
 import org.example.configuration.ApplicationConfig;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;

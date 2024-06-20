@@ -39,8 +39,12 @@ public class TrackCommandImpl implements BaseCommand {
             String currentLink = commandArgs[LINK_POSITION];
             HostInfo hostInfo = parsingManager.findResource(currentLink);
             if(hostInfo != null){
-                linkDB.addLink(userId, currentLink);
-                sendText(userId, AdditionalInfo.ADD_LINK_MESSAGE.getMessage()+ hostInfo.getResourceNameURL() + " распознана и добавлена в БД", bot);
+                if(!checkRepeatLink(userId, currentLink)){
+                    linkDB.addLink(userId, currentLink);
+                    sendText(userId, AdditionalInfo.ADD_LINK_MESSAGE.getMessage()+ hostInfo.getResourceNameURL(), bot);
+                }else{
+                    sendText(userId, AdditionalInfo.REPEAT_LINK_ERROR.getMessage(), bot);
+                }
             }else{
                 sendText(userId, AdditionalInfo.LINK_ADD_ERROR.getMessage(), bot);
             }
@@ -51,6 +55,12 @@ public class TrackCommandImpl implements BaseCommand {
         }
     }
 
+    public Boolean checkRepeatLink(Long userId, String link){
+        if (linkDB.getTrackLinks().get(userId) == null){
+            return false;
+        }
+        return linkDB.getTrackLinks().get(userId).contains(link);
+    }
     @Override
     public String getName() {
         return commandInfo.getCommandName();
