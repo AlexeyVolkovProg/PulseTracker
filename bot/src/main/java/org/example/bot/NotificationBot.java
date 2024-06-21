@@ -8,6 +8,7 @@ import org.example.configuration.ApplicationConfig;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.menubutton.MenuButton;
 
 
 @Component
@@ -25,6 +26,7 @@ public class NotificationBot extends TelegramLongPollingBot {
         this.botName = applicationConfig.botName();
         this.telegramToken = applicationConfig.telegramToken();
         this.commandManager = commandManager;
+        this.commandManager.menuInitializer(this);
     }
 
     @Override
@@ -41,6 +43,7 @@ public class NotificationBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         if (update.getMessage() != null && update.getMessage().hasText()){
             commandManager.commandHandler(update, this);
+
         }
     }
 
