@@ -1,5 +1,6 @@
 package org.example.configuration;
 
+
 import jakarta.validation.constraints.NotEmpty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

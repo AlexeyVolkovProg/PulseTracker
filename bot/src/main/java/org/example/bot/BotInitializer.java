@@ -1,6 +1,7 @@
 package org.example.bot;
 
 
+import com.pengrad.telegrambot.model.MenuButton;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ public class BotInitializer {
     public BotInitializer(NotificationBot notificationBot) throws TelegramApiException {
         TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
         botsApi.registerBot(notificationBot);
+
     }
 
 }
