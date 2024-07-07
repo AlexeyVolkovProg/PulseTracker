@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: scrapper
+  codec:
+    max-in-memory-size: 500KB
+
+jackson:
+  time-zone: UTC
+
+server:
+  port: 25000

@@ -1,9 +1,10 @@
 package org.example;
 
 
-import org.example.client.github.GithubClientImpl;
+import org.example.service.GithubRepoHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import java.io.IOException;
 
@@ -11,14 +12,15 @@ import java.io.IOException;
 @SpringBootApplication
 public class ScrapperApplication {
 
-    private static GithubClientImpl githubClientImpl;
+    private static GithubRepoHandler githubRepoHandler;
 
-    public ScrapperApplication(GithubClientImpl githubClientImpl) {
-        this.githubClientImpl = githubClientImpl;
+    public ScrapperApplication(GithubRepoHandler githubRepoHandler) {
+        ScrapperApplication.githubRepoHandler = githubRepoHandler;
     }
 
     public static void main(String[] args) throws IOException {
         SpringApplication.run(ScrapperApplication.class, args);
-        githubClientImpl.commitResponseList();
+
+        githubRepoHandler.handleEventsRepoInfo().stream().forEach(System.out::println);
     }
 }
