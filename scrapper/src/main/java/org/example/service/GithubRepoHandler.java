@@ -18,7 +18,7 @@ public class GithubRepoHandler {
 
 
     public List<String> handleEventsRepoInfo(){
-        return githubClient.fetchEvents("AlexeyVolkovProg", "PulseTracker").stream().filter(Objects::nonNull).map(RepoEventResponse::getType)
+        return githubClient.fetchEvents("AlexeyVolkovProg", "PulseTracker").stream().filter(Objects::nonNull).map(RepoEventResponse::toString)
                 .toList();
     }
 

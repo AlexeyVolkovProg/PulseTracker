@@ -3,6 +3,7 @@ package org.example.client.github.dto.events;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.example.client.github.dto.RepoEventResponse;
@@ -16,11 +17,15 @@ import java.time.OffsetDateTime;
  */
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class IssueEventResponse extends RepoEventResponse {
 
     @JsonProperty("payload")
     private IssueEventPayload issueEventPayload;
+
+    public IssueEventResponse(String id, String type, String createDate) {
+        super(id, type, createDate);
+    }
 
 
     @Getter
