@@ -3,6 +3,8 @@ package org.example.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.client.github.GithubReposService;
 import org.example.client.github.impl.GithubClientImpl;
+import org.example.client.stackoverflow.StackOverFlowQuestionsService;
+import org.example.client.stackoverflow.impl.StackOverFlowClientImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +15,11 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
+
+/**
+ * Конфигурация для клиентов взаимодействующих с внешними API,
+ * благодаря которым мы будем отслеживать изменения ресурсов, на обновления которых подписан пользователь
+ */
 @Configuration
 public class ClientConfiguration {
 
@@ -54,10 +61,18 @@ public class ClientConfiguration {
         return buildClient(GithubConfiguration.BASE_API_URL, GithubReposService.class, GithubConfiguration.MEDIA_TYPE);
     }
 
+    public StackOverFlowQuestionsService buildStackOverFlowQuestionsService(){
+        return buildClient(StackOverFlowConfiguration.BASE_API_URL, StackOverFlowQuestionsService.class, StackOverFlowConfiguration.MEDIA_TYPE);
+    }
+
 
     @Bean
     public GithubClientImpl buildGithubClient() {
         return new GithubClientImpl(buildGithubReposService());
     }
 
+    @Bean
+    public StackOverFlowClientImpl buildStackOverFlowClient(){
+        return new StackOverFlowClientImpl(buildStackOverFlowQuestionsService());
+    }
 }

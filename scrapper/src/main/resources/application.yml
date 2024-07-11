@@ -9,3 +9,6 @@ jackson:
 
 server:
   port: 25000
+
+scheduling:
+  fixed-delay: 5000

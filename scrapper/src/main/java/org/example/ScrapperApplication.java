@@ -4,11 +4,11 @@ package org.example;
 import org.example.service.GithubRepoHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import java.io.IOException;
 
-@EnableConfigurationProperties
 @SpringBootApplication
+@ConfigurationPropertiesScan("org.example.configuration")
 public class ScrapperApplication {
 
     private static GithubRepoHandler githubRepoHandler;
@@ -20,6 +20,5 @@ public class ScrapperApplication {
     public static void main(String[] args) throws IOException {
         SpringApplication.run(ScrapperApplication.class, args);
 
-        githubRepoHandler.handleEventsRepoInfo().stream().forEach(System.out::println);
     }
 }

@@ -19,6 +19,7 @@ public class GithubRepoHandler {
 
 
     public List<String> handleEventsRepoInfo(){
+        //пока что заглушка, далее будут искаться по конкретным значениям, приходящим от модуля бот
         return githubClient.fetchEvents("AlexeyVolkovProg", "PulseTracker").stream().filter(Objects::nonNull).map(this::getEventDescription)
                 .toList();
     }
