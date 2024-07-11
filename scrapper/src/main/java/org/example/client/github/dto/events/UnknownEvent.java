@@ -12,13 +12,12 @@ import org.example.client.github.dto.RepoEventResponse;
  * Класс для отлавливания не отслеживаемых событий в репозиториях
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@RequiredArgsConstructor
 public class UnknownEvent extends RepoEventResponse {
     @JsonProperty("type")
     private String eventType;
 
 
-    public UnknownEvent(String id, String type, String createDate) {
-        super(id, type, createDate);
+    public UnknownEvent() {
+        super.setType("UnknownEvent");
     }
 }

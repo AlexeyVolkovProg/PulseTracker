@@ -17,14 +17,13 @@ import java.time.OffsetDateTime;
  */
 @Getter
 @Setter
-@NoArgsConstructor
 public class IssueEventResponse extends RepoEventResponse {
 
     @JsonProperty("payload")
     private IssueEventPayload issueEventPayload;
 
-    public IssueEventResponse(String id, String type, String createDate) {
-        super(id, type, createDate);
+    public IssueEventResponse() {
+        super.setType("IssueEvent");
     }
 
 

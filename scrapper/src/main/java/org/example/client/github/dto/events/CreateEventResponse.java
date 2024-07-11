@@ -15,14 +15,13 @@ import java.time.OffsetDateTime;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class CreateEventResponse extends RepoEventResponse {
 
     @JsonProperty("payload")
     private PayloadCreateEvent payloadCreateEvent;
 
-    public CreateEventResponse(String id, String type, String createDate) {
-        super(id, type, createDate);
+    public CreateEventResponse() {
+        super.setType("CreateEvent");
     }
 
 

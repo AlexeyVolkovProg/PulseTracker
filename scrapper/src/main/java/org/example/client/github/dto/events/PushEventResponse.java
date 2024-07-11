@@ -16,7 +16,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
 public class PushEventResponse extends RepoEventResponse {
 
 
@@ -24,8 +23,8 @@ public class PushEventResponse extends RepoEventResponse {
     @JsonProperty("payload")
     private PushEventPayload pushEventPayload;
 
-    public PushEventResponse(String id, String type, String createDate) {
-        super(id, type, createDate);
+    public PushEventResponse() {
+        super.setType("PushEvent");
     }
 
 

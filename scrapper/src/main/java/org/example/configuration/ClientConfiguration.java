@@ -1,7 +1,5 @@
 package org.example.configuration;
 
-
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.client.github.GithubReposService;
 import org.example.client.github.impl.GithubClientImpl;
@@ -19,13 +17,13 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 public class ClientConfiguration {
 
 
-    @Bean
-    public ObjectMapper objectMapper(){
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return objectMapper;
-    }
+    private final ObjectMapper objectMapper;
 
+    private final int MEMORY_SIZE = 500 * 1024;
+
+    public ClientConfiguration(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     /**
      * Абстрактный метод для конфигурации клиентов, которые посылают запросы на внешние API
@@ -35,16 +33,15 @@ public class ClientConfiguration {
         //Конфигурация для сериализация и десериализации
         ExchangeStrategies strategies = ExchangeStrategies.builder()
                 .codecs(clientDefaultCodecsConfigurer -> {
-                    clientDefaultCodecsConfigurer.defaultCodecs().jackson2JsonDecoder(new Jackson2JsonDecoder(objectMapper()));
-                    clientDefaultCodecsConfigurer.defaultCodecs().jackson2JsonEncoder(new Jackson2JsonEncoder(objectMapper()));
+                    clientDefaultCodecsConfigurer.defaultCodecs().jackson2JsonDecoder(new Jackson2JsonDecoder(objectMapper));
+                    clientDefaultCodecsConfigurer.defaultCodecs().jackson2JsonEncoder(new Jackson2JsonEncoder(objectMapper));
                 })
                 .build();
 
         WebClient webClient = WebClient.builder()
                 .baseUrl(baseURL)
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, mediaType).codecs(codecs -> codecs
-                .defaultCodecs()
-                .maxInMemorySize(500 * 1024))
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, mediaType)
+                .codecs(codecs -> codecs.defaultCodecs().maxInMemorySize(MEMORY_SIZE))
                 .exchangeStrategies(strategies)
                 .build();
 
@@ -57,8 +54,9 @@ public class ClientConfiguration {
         return buildClient(GithubConfiguration.BASE_API_URL, GithubReposService.class, GithubConfiguration.MEDIA_TYPE);
     }
 
+
     @Bean
-    public GithubClientImpl buildGithubClient(){
+    public GithubClientImpl buildGithubClient() {
         return new GithubClientImpl(buildGithubReposService());
     }
 

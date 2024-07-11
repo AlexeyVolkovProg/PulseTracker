@@ -16,7 +16,6 @@ import java.time.OffsetDateTime;
  */
 @Getter
 @Setter
-@NoArgsConstructor
 public class PullEventResponse extends RepoEventResponse {
 
 
@@ -24,8 +23,8 @@ public class PullEventResponse extends RepoEventResponse {
     @JsonProperty("payload")
     private PullEventPayload pullEventPayload;
 
-    public PullEventResponse(String id, String type, String createDate) {
-        super(id, type, createDate);
+    public PullEventResponse() {
+        super.setType("PullEvent");
     }
 
     @Getter
