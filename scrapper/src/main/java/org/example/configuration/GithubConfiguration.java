@@ -1,10 +1,27 @@
 package org.example.configuration;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.MediaType;
 
+
+
+@Configuration
+@PropertySource("classpath:application.yml")
+@Getter
+@Setter
 public class GithubConfiguration {
 
-    public final static String BASE_API_URL  = "https://api.github.com/2.3/";
-    public static final String MEDIA_TYPE = MediaType.APPLICATION_JSON_VALUE;
+    private final String baseApiUrl;
+    private final String mediaType;
 
+    public GithubConfiguration(@Value("${github.base-api-url}") String baseApiUrl,
+                               @Value("${github.media-type}") String mediaType) {
+        this.baseApiUrl = baseApiUrl;
+        this.mediaType = mediaType;
+    }
 }

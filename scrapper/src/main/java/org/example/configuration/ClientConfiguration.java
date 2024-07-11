@@ -5,6 +5,7 @@ import org.example.client.github.GithubReposService;
 import org.example.client.github.impl.GithubClientImpl;
 import org.example.client.stackoverflow.StackOverFlowQuestionsService;
 import org.example.client.stackoverflow.impl.StackOverFlowClientImpl;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -26,10 +27,17 @@ public class ClientConfiguration {
 
     private final ObjectMapper objectMapper;
 
-    private final int MEMORY_SIZE = 500 * 1024;
+    private final GithubConfiguration githubConfiguration;
 
-    public ClientConfiguration(ObjectMapper objectMapper) {
+    private final StackOverFlowConfiguration stackOverFlowConfiguration;
+
+    private final Integer MEMORY_SIZE;
+
+    public ClientConfiguration(ObjectMapper objectMapper, GithubConfiguration githubConfiguration, StackOverFlowConfiguration stackOverFlowConfiguration, ApplicationConfiguration applicationConfiguration1, ApplicationConfiguration applicationConfiguration) {
         this.objectMapper = objectMapper;
+        this.githubConfiguration = githubConfiguration;
+        this.stackOverFlowConfiguration = stackOverFlowConfiguration;
+        MEMORY_SIZE = applicationConfiguration.getMemorySize();
     }
 
     /**
@@ -44,7 +52,6 @@ public class ClientConfiguration {
                     clientDefaultCodecsConfigurer.defaultCodecs().jackson2JsonEncoder(new Jackson2JsonEncoder(objectMapper));
                 })
                 .build();
-
         WebClient webClient = WebClient.builder()
                 .baseUrl(baseURL)
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, mediaType)
@@ -58,11 +65,11 @@ public class ClientConfiguration {
 
 
     public GithubReposService buildGithubReposService() {
-        return buildClient(GithubConfiguration.BASE_API_URL, GithubReposService.class, GithubConfiguration.MEDIA_TYPE);
+        return buildClient(githubConfiguration.getBaseApiUrl(), GithubReposService.class, githubConfiguration.getMediaType());
     }
 
-    public StackOverFlowQuestionsService buildStackOverFlowQuestionsService(){
-        return buildClient(StackOverFlowConfiguration.BASE_API_URL, StackOverFlowQuestionsService.class, StackOverFlowConfiguration.MEDIA_TYPE);
+    public StackOverFlowQuestionsService buildStackOverFlowQuestionsService() {
+        return buildClient(stackOverFlowConfiguration.getBaseApiUrl(), StackOverFlowQuestionsService.class, stackOverFlowConfiguration.getMediaType());
     }
 
 
@@ -72,7 +79,7 @@ public class ClientConfiguration {
     }
 
     @Bean
-    public StackOverFlowClientImpl buildStackOverFlowClient(){
+    public StackOverFlowClientImpl buildStackOverFlowClient() {
         return new StackOverFlowClientImpl(buildStackOverFlowQuestionsService());
     }
 }

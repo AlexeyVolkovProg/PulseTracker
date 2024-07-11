@@ -11,7 +11,7 @@ import java.util.Objects;
 @Service
 public class GithubRepoHandler {
 
-    private GithubClientImpl githubClient;
+    private final GithubClientImpl githubClient;
 
     public GithubRepoHandler(GithubClientImpl githubClient) {
         this.githubClient = githubClient;
