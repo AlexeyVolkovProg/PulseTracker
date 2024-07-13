@@ -1,5 +1,4 @@
-package org.example.botrestapi.dto;
-
+package org.example.scrapperrestapi.dto.error;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -11,20 +10,18 @@ import java.util.List;
 @Setter
 public class ApiErrorResponse {
 
-    @JsonProperty ("description")
+    @JsonProperty("description")
     private String description;
 
-    @JsonProperty ("code")
+    @JsonProperty("code")
     private String code;
 
-    @JsonProperty ("exceptionName")
+    @JsonProperty("exceptionName")
     private String exceptionName;
 
-    @JsonProperty ("exceptionMessage")
+    @JsonProperty("exceptionMessage")
     private String exceptionMessage;
 
-    @JsonProperty ("stacktrace")
+    @JsonProperty("stacktrace")
     private List<String> stacktrace;
-
-
 }

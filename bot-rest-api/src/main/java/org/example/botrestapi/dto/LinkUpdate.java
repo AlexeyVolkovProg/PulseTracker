@@ -22,5 +22,4 @@ public class LinkUpdate {
     @JsonProperty("tgChatIds")
     private List<Long> tgChatIds;
 
-
 }
