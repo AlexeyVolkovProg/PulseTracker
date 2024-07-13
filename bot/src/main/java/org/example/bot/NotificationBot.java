@@ -43,7 +43,6 @@ public class NotificationBot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         if (update.getMessage() != null && update.getMessage().hasText()){
             commandManager.commandHandler(update, this);
-
         }
     }
 

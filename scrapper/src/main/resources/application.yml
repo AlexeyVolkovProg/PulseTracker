@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: scrapper
+  codec:
+    max-in-memory-size: 500KB
+
+app:
+  memory-size: 512000  # Значение в байтах, например 512000 для 500 KB
+
+jackson:
+  time-zone: UTC
+
+server:
+  port: 25000
+
+scheduling:
+  fixed-delay: 5000
+
+github:
+  base-api-url: "https://api.github.com/"
+  media-type: "application/json"
+
+stackOverFlow:
+  base-api-url: "https://api.stackexchange.com/2.3/"
+  media-type: "application/json"
