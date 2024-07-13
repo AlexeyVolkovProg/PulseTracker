@@ -12,6 +12,7 @@
     <modules>
         <module>bot</module>
         <module>scrapper</module>
+        <module>bot-rest-api</module>
     </modules>
 
     <properties>
