@@ -9,6 +9,7 @@ import org.springframework.web.service.annotation.GetExchange;
 
 
 /**
+ * HTTP spring interface
  * Отвечает за отправку запросов к API StackOverFlow
  */
 public interface StackOverFlowQuestionsService {

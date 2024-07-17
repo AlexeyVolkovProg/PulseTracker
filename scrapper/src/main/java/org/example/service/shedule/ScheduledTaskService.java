@@ -1,6 +1,8 @@
-package org.example.service;
+package org.example.service.shedule;
 
 
+import org.example.service.github.GithubRepoHandler;
+import org.example.service.stackoverflow.StackOverFlowHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;

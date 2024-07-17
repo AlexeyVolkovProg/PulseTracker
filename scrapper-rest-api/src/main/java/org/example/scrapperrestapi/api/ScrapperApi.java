@@ -12,7 +12,7 @@ public interface ScrapperApi {
     /**
      * Регистрация чата(пользователя) с указанным Id
      */
-    ResponseEntity <?> registerChat( Integer id);
+    ResponseEntity <?> registerChat(Integer id);
 
     /**
      * Удаление чата(пользователя) с указанным Id

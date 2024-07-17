@@ -1,4 +1,4 @@
-package org.example.service;
+package org.example.service.github;
 
 import org.example.client.github.dto.RepoEventResponse;
 import org.example.client.github.dto.events.CreateEventResponse;

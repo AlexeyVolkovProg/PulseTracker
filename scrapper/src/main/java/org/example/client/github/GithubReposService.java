@@ -7,6 +7,7 @@ import org.springframework.web.service.annotation.GetExchange;
 import java.util.List;
 
 /**
+ * HTTP spring interface
  * Отвечает за отправку запросов к API Github
  */
 public interface GithubReposService {

@@ -1,7 +1,7 @@
 package org.example;
 
 
-import org.example.service.GithubRepoHandler;
+import org.example.service.github.GithubRepoHandler;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;

@@ -9,6 +9,7 @@ public enum ScrapperApiEndpoints {
     LINK_URL("/links", "Запросы на добавления, удаление и список отслеживаемых ссылок")
     ;
 
+
     private final String url;
 
     private final String description;

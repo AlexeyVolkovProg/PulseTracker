@@ -5,7 +5,6 @@ import org.example.client.github.GithubReposService;
 import org.example.client.github.impl.GithubClientImpl;
 import org.example.client.stackoverflow.StackOverFlowQuestionsService;
 import org.example.client.stackoverflow.impl.StackOverFlowClientImpl;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -18,11 +17,11 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
 
 /**
- * Конфигурация для клиентов взаимодействующих с внешними API,
+ * Конфигурация для клиентов взаимодействующих с внешними API информационных ресурсов,
  * благодаря которым мы будем отслеживать изменения ресурсов, на обновления которых подписан пользователь
  */
 @Configuration
-public class ClientConfiguration {
+public class ClientTrackResourcesConfiguration {
 
 
     private final ObjectMapper objectMapper;
@@ -33,7 +32,7 @@ public class ClientConfiguration {
 
     private final Integer MEMORY_SIZE;
 
-    public ClientConfiguration(ObjectMapper objectMapper, GithubConfiguration githubConfiguration, StackOverFlowConfiguration stackOverFlowConfiguration, ApplicationConfiguration applicationConfiguration1, ApplicationConfiguration applicationConfiguration) {
+    public ClientTrackResourcesConfiguration(ObjectMapper objectMapper, GithubConfiguration githubConfiguration, StackOverFlowConfiguration stackOverFlowConfiguration, ApplicationConfiguration applicationConfiguration1, ApplicationConfiguration applicationConfiguration) {
         this.objectMapper = objectMapper;
         this.githubConfiguration = githubConfiguration;
         this.stackOverFlowConfiguration = stackOverFlowConfiguration;
