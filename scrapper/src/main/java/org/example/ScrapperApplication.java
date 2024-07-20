@@ -11,12 +11,6 @@ import java.io.IOException;
 @ConfigurationPropertiesScan("org.example.configuration")
 public class ScrapperApplication {
 
-    private static GithubRepoHandler githubRepoHandler;
-
-    public ScrapperApplication(GithubRepoHandler githubRepoHandler) {
-        ScrapperApplication.githubRepoHandler = githubRepoHandler;
-    }
-
     public static void main(String[] args) throws IOException {
         SpringApplication.run(ScrapperApplication.class, args);
 

@@ -7,6 +7,8 @@ import java.net.URI;
 
 public interface LinkService {
     LinkResponse add(long tgChatId, String url);
-    LinkResponse remove(long tgChatId, String url);
+    //метод заглушка, далее будет добавлено взаимодействие с реальной бд
+    LinkResponse removeLinkFromChat(long tgChatId, String url);
+
     ListLinksResponse listAll(long tgChatId);
 }

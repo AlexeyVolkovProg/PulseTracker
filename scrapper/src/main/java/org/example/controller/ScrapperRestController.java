@@ -5,17 +5,18 @@ import org.example.scrapperrestapi.dto.request.AddLinkRequest;
 import org.example.scrapperrestapi.dto.request.RemoveLinkRequest;
 import org.example.scrapperrestapi.dto.response.LinkResponse;
 import org.example.scrapperrestapi.dto.response.ListLinksResponse;
-import org.example.service.jdbc.LinkServiceImpl;
-import org.example.service.jdbc.TgChatServiceImpl;
+import org.example.service.jpa.LinkServiceImpl;
+import org.example.service.jpa.TgChatServiceImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/scrapper-api")
-public class ScrapperRestController implements ScrapperApi {
+@RestController
+@RequestMapping("/scrapper-api")
+public class  ScrapperRestController implements ScrapperApi {
 
-    private LinkServiceImpl linkService;
+    private final LinkServiceImpl linkService;
 
-    private TgChatServiceImpl tgChatService;
+    private final TgChatServiceImpl tgChatService;
 
     public ScrapperRestController(LinkServiceImpl linkService, TgChatServiceImpl tgChatService) {
         this.linkService = linkService;
@@ -25,38 +26,35 @@ public class ScrapperRestController implements ScrapperApi {
 
     @Override
     @PostMapping("/tg-chat/{id}")
-    public ResponseEntity<?> registerChat(@PathVariable Integer id) {
+    public ResponseEntity<?> registerChat(@PathVariable("id") Long id) {
         tgChatService.register(id);
-        return null;
+        return ResponseEntity.ok().build();
     }
 
     @Override
     @DeleteMapping("/tg-chat/{id}")
-    public ResponseEntity<?> deleteChat(@PathVariable Integer id) {
+    public ResponseEntity<?> deleteChat(@PathVariable("id") Long id) {
         tgChatService.unregister(id);
-        return null;
+        return ResponseEntity.ok().build();
     }
 
     @Override
     @GetMapping("/links")
-    public ResponseEntity<ListLinksResponse> getTrackLinks(@RequestParam("Tg-Chat-Id") Integer tgChatId) {
-        //будет реализован при подключении БД
-        return null;
+    public ResponseEntity<ListLinksResponse> getTrackLinks(@RequestParam("Tg-Chat-Id") Long tgChatId) {
+        return ResponseEntity.ok(linkService.listAll(tgChatId));
     }
 
     @Override
     @PostMapping("/links")
-    public ResponseEntity<LinkResponse> addTrackLink(@RequestParam("Tg-Chat-Id") Integer tgChatId,
+    public ResponseEntity<LinkResponse> addTrackLink(@RequestParam("Tg-Chat-Id") Long tgChatId,
                                                      @RequestBody AddLinkRequest addLink) {
-        linkService.add(tgChatId, addLink.getLink());
-        return null;
+        return ResponseEntity.ok(linkService.add(tgChatId, addLink.getLink()));
     }
 
     @Override
     @DeleteMapping("/links")
-    public ResponseEntity<LinkResponse> deleteTrackLink(@RequestParam("Tg-Chat-Id") Integer tgChatId,
+    public ResponseEntity<LinkResponse> deleteTrackLink(@RequestParam("Tg-Chat-Id") Long tgChatId,
                                                         @RequestBody RemoveLinkRequest removeLinkRequest) {
-        linkService.remove(tgChatId, removeLinkRequest.getLink());
-        return null;
+        return ResponseEntity.ok( linkService.removeLinkFromChat(tgChatId, removeLinkRequest.getLink()));
     }
 }

@@ -23,10 +23,10 @@ public class ScheduledTaskService {
     }
 
     //пример метода, который будет работать как фоновая задача
-    @Scheduled(fixedDelay = 5000)
-    public void updateData(){
-        //githubRepoHandler.handleEventsRepoInfo().forEach(System.out::println);
-        stackOverFlowHandler.handleQuestionAnswers().forEach(System.out::println);
-    }
+//    @Scheduled(fixedDelay = 5000)
+//    public void updateData(){
+//        //githubRepoHandler.handleEventsRepoInfo().forEach(System.out::println);
+//        stackOverFlowHandler.handleQuestionAnswers().forEach(System.out::println);
+//    }
 
 }

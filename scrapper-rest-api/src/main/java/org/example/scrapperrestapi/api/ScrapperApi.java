@@ -12,29 +12,29 @@ public interface ScrapperApi {
     /**
      * Регистрация чата(пользователя) с указанным Id
      */
-    ResponseEntity <?> registerChat(Integer id);
+    ResponseEntity <?> registerChat(Long id);
 
     /**
      * Удаление чата(пользователя) с указанным Id
      */
-    ResponseEntity <?> deleteChat(Integer id);
+    ResponseEntity <?> deleteChat(Long id);
 
 
     /**
      * Получение списка всех отслеживаемых ссылок для конкретного пользователя
      */
-    ResponseEntity <ListLinksResponse> getTrackLinks(Integer tgChatId);
+    ResponseEntity <ListLinksResponse> getTrackLinks(Long tgChatId);
 
     /**
      * Добавления новой отслеживаемой ссылки для конкретного пользователя
      */
-    ResponseEntity <LinkResponse> addTrackLink(Integer tgChatId, @RequestBody AddLinkRequest addLink);
+    ResponseEntity <LinkResponse> addTrackLink(Long tgChatId, @RequestBody AddLinkRequest addLink);
 
 
     /**
      * Удаление конкретной отслеживаемой ссылки для конкретного пользователя
      */
-    ResponseEntity <LinkResponse> deleteTrackLink(Integer tgChatId, @RequestBody RemoveLinkRequest removeLinkRequest);
+    ResponseEntity <LinkResponse> deleteTrackLink(Long tgChatId, @RequestBody RemoveLinkRequest removeLinkRequest);
 
 
 }

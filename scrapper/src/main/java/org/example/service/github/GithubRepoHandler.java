@@ -1,7 +1,6 @@
 package org.example.service.github;
 
 import org.example.client.github.dto.RepoEventResponse;
-import org.example.client.github.dto.events.CreateEventResponse;
 import org.example.client.github.impl.GithubClientImpl;
 import org.springframework.stereotype.Service;
 

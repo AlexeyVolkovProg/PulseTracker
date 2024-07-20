@@ -3,9 +3,25 @@ spring:
     name: scrapper
   codec:
     max-in-memory-size: 500KB
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          lob:
+            non-contextual-creation: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 12345
+    driver-class-name: org.postgresql.Driver
 
 app:
-  memory-size: 512000  # Значение в байтах, например 512000 для 500 KB
+  memory-size: 512000
 
 jackson:
   time-zone: UTC
