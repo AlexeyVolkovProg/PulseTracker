@@ -3,6 +3,7 @@ package org.example.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.exception.LinkNotFoundException;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -43,6 +44,8 @@ public class Chat {
         if (links.contains(link)) {
             links.remove(link);
             link.getChats().remove(this);
+        }else{
+            throw new LinkNotFoundException("Ссылка отсутствует в листе отслеживания для данного чата");
         }
     }
 
@@ -64,7 +67,6 @@ public class Chat {
     public String toString() {
         return "Chat{" +
                 "id=" + id +
-                ", links=" + links +
                 '}';
     }
 }

@@ -1,5 +1,8 @@
 package org.example.service.jpa;
 
+import org.example.exception.ChatNotFoundException;
+import org.example.exception.LinkNotFoundException;
+import org.example.model.Chat;
 import org.example.model.Link;
 import org.example.repository.ChatRepository;
 import org.example.repository.LinkRepository;
@@ -17,17 +20,24 @@ public class LinkServiceImpl implements LinkService {
 
     private final LinkRepository linkRepository;
 
-    public LinkServiceImpl(LinkRepository linkRepository, ChatRepository chatRepository) {
+    private final ChatRepository chatRepository;
+
+    public LinkServiceImpl(LinkRepository linkRepository, ChatRepository chatRepository, ChatRepository chatRepository1) {
         this.linkRepository = linkRepository;
+        this.chatRepository = chatRepository1;
     }
 
     /**
-     * Удалить отслеживание ссылки для конкретного чата
+     * Удалить отслеживаемую ссылку для конкретного чата
      */
 
     @Override
+    @Transactional
     public LinkResponse removeLinkFromChat(long tgChatId, String url) {
-        return null;
+        Chat chat = chatRepository.findById(tgChatId).orElseThrow(() -> new ChatNotFoundException("Chat not found"));
+        Link link = linkRepository.findByUrl(url).orElseThrow(() -> new LinkNotFoundException("Link not Found"));
+        chat.removeLink(link);
+        return new LinkResponse(tgChatId, url);
     }
 
     /**
@@ -36,7 +46,9 @@ public class LinkServiceImpl implements LinkService {
     @Override
     @Transactional
     public ListLinksResponse listAll(long tgChatId) {
-        List<Link> links = linkRepository.findAllByChatsId(tgChatId);
+        Chat chat = chatRepository.findById(tgChatId).orElseThrow(() -> new ChatNotFoundException("Chat not found"));
+        List<Link> links = linkRepository.findAllByChatsId(chat.getId());
+        links.forEach(System.out::println);
         List<LinkResponse> linkResponses = links.stream()
                 .map(link -> {
                     LinkResponse linkResponse = new LinkResponse();

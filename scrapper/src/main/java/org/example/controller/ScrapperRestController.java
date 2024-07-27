@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/scrapper-api")
-public class  ScrapperRestController implements ScrapperApi {
+public class ScrapperRestController implements ScrapperApi {
 
     private final LinkServiceImpl linkService;
 
@@ -47,15 +47,17 @@ public class  ScrapperRestController implements ScrapperApi {
 
     @Override
     @PostMapping("/links")
-    public ResponseEntity<LinkResponse> addTrackLink(@RequestParam("Tg-Chat-Id") Long tgChatId,
-                                                     @RequestBody AddLinkRequest addLink) {
+    public ResponseEntity<LinkResponse> addTrackLink(
+            @RequestParam("Tg-Chat-Id") Long tgChatId,
+            @RequestBody AddLinkRequest addLink) {
         return ResponseEntity.ok(tgChatService.addLinkToChat(tgChatId, addLink.getLink()));
     }
 
     @Override
     @DeleteMapping("/links")
-    public ResponseEntity<LinkResponse> deleteTrackLink(@RequestParam("Tg-Chat-Id") Long tgChatId,
-                                                        @RequestBody RemoveLinkRequest removeLinkRequest) {
-        return ResponseEntity.ok( linkService.removeLinkFromChat(tgChatId, removeLinkRequest.getLink()));
+    public ResponseEntity<LinkResponse> deleteTrackLink(
+            @RequestParam("Tg-Chat-Id") Long tgChatId,
+            @RequestBody RemoveLinkRequest removeLinkRequest) {
+        return ResponseEntity.ok(linkService.removeLinkFromChat(tgChatId, removeLinkRequest.getLink()));
     }
 }

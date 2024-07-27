@@ -42,7 +42,7 @@ public class Link {
     public String toString() {
         return "Link{" +
                 "id=" + id +
-                ", url='" + url + '\'' +
+                ", url='" + url + '\'' + chats +
                 '}';
     }
 }

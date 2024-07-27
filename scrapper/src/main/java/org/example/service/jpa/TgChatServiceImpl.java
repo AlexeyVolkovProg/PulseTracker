@@ -1,5 +1,6 @@
 package org.example.service.jpa;
 
+import org.example.exception.ChatNotFoundException;
 import org.example.model.Chat;
 import org.example.model.Link;
 import org.example.repository.ChatRepository;
@@ -31,17 +32,20 @@ public class TgChatServiceImpl implements TgChatService {
     }
 
 
-    //метод заглушка, далее будет добавлено взаимодействие с реальной бд
     @Override
     public void unregister(long tgChatId) {
         System.out.println("Был удален чат с id " + tgChatId);
-        chatRepository.deleteById(tgChatId);
+        Chat chat = chatRepository.findById(tgChatId).orElseThrow(() -> new ChatNotFoundException("Chat not found"));
+        chatRepository.deleteById(chat.getId());
     }
 
+    /**
+     * Закрепление ссылки за чатом
+     */
     @Override
     @Transactional
     public LinkResponse addLinkToChat(Long tgChatId, String url){
-        Chat chat = chatRepository.findById(tgChatId).orElseThrow(() -> new RuntimeException("Chat not found"));
+        Chat chat = chatRepository.findById(tgChatId).orElseThrow(() -> new ChatNotFoundException("Chat not found"));
         Link link = linkRepository.findByUrl(url).orElseGet(() -> {
             Link newLink = new Link();
             newLink.setUrl(url);
