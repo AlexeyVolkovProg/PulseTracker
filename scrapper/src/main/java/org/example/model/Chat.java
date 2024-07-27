@@ -5,12 +5,12 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Getter
 @Table(name = "chat", schema = "public")
 public class Chat {
 
@@ -22,7 +22,7 @@ public class Chat {
     private long id;
 
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "chat_link",
             schema = "public",
@@ -31,4 +31,40 @@ public class Chat {
     )
     private Set<Link> links = new HashSet<>();
 
+
+    public void addLink(Link link) {
+        if (!links.contains(link)) {
+            links.add(link);
+            link.getChats().add(this);
+        }
+    }
+
+    public void removeLink(Link link) {
+        if (links.contains(link)) {
+            links.remove(link);
+            link.getChats().remove(this);
+        }
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Chat chat = (Chat) o;
+        return id == chat.id && Objects.equals(links, chat.links);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Chat{" +
+                "id=" + id +
+                ", links=" + links +
+                '}';
+    }
 }

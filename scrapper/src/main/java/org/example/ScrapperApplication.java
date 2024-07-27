@@ -13,6 +13,5 @@ public class ScrapperApplication {
 
     public static void main(String[] args) throws IOException {
         SpringApplication.run(ScrapperApplication.class, args);
-
     }
 }

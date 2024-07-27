@@ -2,34 +2,47 @@ package org.example.model;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Getter
+@Setter
 @Table(name = "link", schema = "public")
 public class Link {
 
-    public Link(Long tgChatId, String url){
-        this.id = tgChatId;
-        this.url = url;
-    }
-
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "l_url", nullable = false)
+    @Column(name = "url", nullable = false)
     private String url;
 
     @ManyToMany(mappedBy = "links")
     private Set<Chat> chats = new HashSet<>();
 
-    public Link(String url) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Link link = (Link) o;
+        return id == link.id && Objects.equals(url, link.url) && Objects.equals(chats, link.chats);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, url);
+    }
+
+    @Override
+    public String toString() {
+        return "Link{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                '}';
     }
 }

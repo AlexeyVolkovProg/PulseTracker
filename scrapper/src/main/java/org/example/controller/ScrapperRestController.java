@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.model.Chat;
 import org.example.scrapperrestapi.api.ScrapperApi;
 import org.example.scrapperrestapi.dto.request.AddLinkRequest;
 import org.example.scrapperrestapi.dto.request.RemoveLinkRequest;
@@ -48,7 +49,7 @@ public class  ScrapperRestController implements ScrapperApi {
     @PostMapping("/links")
     public ResponseEntity<LinkResponse> addTrackLink(@RequestParam("Tg-Chat-Id") Long tgChatId,
                                                      @RequestBody AddLinkRequest addLink) {
-        return ResponseEntity.ok(linkService.add(tgChatId, addLink.getLink()));
+        return ResponseEntity.ok(tgChatService.addLinkToChat(tgChatId, addLink.getLink()));
     }
 
     @Override
