@@ -18,9 +18,9 @@ spring:
             non-contextual-creation: true
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: 12345
+#    url: jdbc:postgresql://localhost:5433/postgres
+#    username: postgres
+#    password: a10052004
     driver-class-name: org.postgresql.Driver
 
 app:

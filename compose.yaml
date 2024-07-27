@@ -1,0 +1,30 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: a10052004
+      POSTGRES_DB: postgres
+    ports:
+      - "5432"
+
+  scrapper:
+    build: scrapper
+    depends_on:
+      - postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=a10052004
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "25000:25000"
+
+  bot:
+    build: bot
+    environment:
+      - TELEGRAMTOKEN=${TELEGRAM_TOKEN}
+      - BOTNAME=${BOT_NAME}
+    ports:
+      - "8090:8090"

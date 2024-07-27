@@ -1,6 +1,6 @@
-app:
-    telegramToken: ${TELEGRAM_TOKEN}
-    botName: ${BOT_NAME}
+#app:
+#    telegramToken: ${TELEGRAM_TOKEN}
+#    botName: ${BOT_NAME}
 
 spring:
     application:
