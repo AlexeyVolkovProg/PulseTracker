@@ -1,6 +1,6 @@
 package org.example.controller;
 
-import org.example.model.Chat;
+import lombok.extern.slf4j.Slf4j;
 import org.example.scrapperrestapi.api.ScrapperApi;
 import org.example.scrapperrestapi.dto.request.AddLinkRequest;
 import org.example.scrapperrestapi.dto.request.RemoveLinkRequest;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/scrapper-api")
+@Slf4j
 public class ScrapperRestController implements ScrapperApi {
 
     private final LinkServiceImpl linkService;
@@ -29,6 +30,7 @@ public class ScrapperRestController implements ScrapperApi {
     @PostMapping("/tg-chat/{id}")
     public ResponseEntity<?> registerChat(@PathVariable("id") Long id) {
         tgChatService.register(id);
+        System.out.println("Пришел запрос на регистрацию чата " + "id");
         return ResponseEntity.ok().build();
     }
 
@@ -42,6 +44,7 @@ public class ScrapperRestController implements ScrapperApi {
     @Override
     @GetMapping("/links")
     public ResponseEntity<ListLinksResponse> getTrackLinks(@RequestParam("Tg-Chat-Id") Long tgChatId) {
+        log.info("Пришел запрос на показ всех ссылок для чата " + tgChatId);
         return ResponseEntity.ok(linkService.listAll(tgChatId));
     }
 
@@ -50,6 +53,7 @@ public class ScrapperRestController implements ScrapperApi {
     public ResponseEntity<LinkResponse> addTrackLink(
             @RequestParam("Tg-Chat-Id") Long tgChatId,
             @RequestBody AddLinkRequest addLink) {
+        System.out.println("Пришел запрос на регистрацию ссылки " + addLink);
         return ResponseEntity.ok(tgChatService.addLinkToChat(tgChatId, addLink.getLink()));
     }
 

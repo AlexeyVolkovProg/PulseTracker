@@ -1,12 +1,16 @@
-#app:
-#    telegramToken: ${TELEGRAM_TOKEN}
-#    botName: ${BOT_NAME}
+app:
+  telegramToken: ${TELEGRAM_TOKEN}
+  botName: ${BOT_NAME}
 
 spring:
-    application:
-        name: bot
-    jackson:
-        time-zone: UTC
+  application:
+    name: bot
+  jackson:
+    time-zone: UTC
 
 server:
-    port: 8090
+  port: 8090
+
+logging:
+  level:
+    org.springframework.web.reactive.function.client: DEBUG

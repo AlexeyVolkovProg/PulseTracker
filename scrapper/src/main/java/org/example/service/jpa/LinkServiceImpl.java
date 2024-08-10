@@ -36,6 +36,7 @@ public class LinkServiceImpl implements LinkService {
     public LinkResponse removeLinkFromChat(long tgChatId, String url) {
         Chat chat = chatRepository.findById(tgChatId).orElseThrow(() -> new ChatNotFoundException("Chat not found"));
         Link link = linkRepository.findByUrl(url).orElseThrow(() -> new LinkNotFoundException("Link not Found"));
+        // todo пофиксить ситуацию, когда не выбрасывается кастомное исключение во время того когда два раза удаляем одну и ту же ссылку
         chat.removeLink(link);
         return new LinkResponse(tgChatId, url);
     }

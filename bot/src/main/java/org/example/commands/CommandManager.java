@@ -52,15 +52,15 @@ public class CommandManager {
 
     /**
      * Инициализация кнопки меню в боте со списком всех доступных команд
-     * @param absSender
+     * @param bot
      */
-    public void menuInitializer(AbsSender absSender) {
+    public void menuInitializer(AbsSender bot) {
         List<BotCommand> baseCommands = new ArrayList<>();
         for(CommandInfo commandInfo: CommandInfo.values()){
             baseCommands.add( new BotCommand(commandInfo.getCommandName(), commandInfo.getDescription()));
         }
         try {
-            absSender.execute(new SetMyCommands(baseCommands, new BotCommandScopeDefault(), null){
+            bot.execute(new SetMyCommands(baseCommands, new BotCommandScopeDefault(), null){
             });
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);

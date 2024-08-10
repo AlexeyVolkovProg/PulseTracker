@@ -12,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Getter
+@Setter
 @Table(name = "chat", schema = "public")
 public class Chat {
 
